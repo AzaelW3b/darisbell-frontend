@@ -6,9 +6,12 @@ import ToastAlert from "../../components/alerts/ToastAlert"
 import { Typography } from "@mui/material"
 
 let colums = [
-    "Nombre de la categoria",
-    "Fecha de creación",
-    "Fecha de actualización",
+    "Nombre",
+    "Apellido",
+    "Usuario",
+    "Correo",
+    "Acciones"
+
 ]
 
 
@@ -38,7 +41,7 @@ const ContentCategory = () => {
 
     return (
         <>
-            <Typography variant="h5" sx={{ fontSize: "20px", fontWeight: 600, color: "#3F3F3F", my: "32px" }}>Categorias</Typography>
+            <Typography variant="h5" sx={{ fontSize: "20px", fontWeight: 600, color: "#3F3F3F", my: "32px" }}>Usuarios</Typography>
             <TableCard
                 handleClickUser={contentCategoryClick}
                 displayColumns={colums}

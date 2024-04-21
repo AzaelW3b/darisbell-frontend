@@ -222,23 +222,20 @@ export function TableCard({
                                                         </ListItemIcon>
                                                         <ListItemText>Editar</ListItemText>
                                                     </MenuItem>
-                                                    {
-                                                        user?.userType === ROLE_ADMIN && (
-                                                            <MenuItem
-                                                                onClick={() =>
-                                                                    handleMenuItemClick("delete", currentElement)
-                                                                }
-                                                            >
-                                                                <ListItemIcon>
-                                                                    <DeleteIcon
-                                                                        fontSize="small"
-                                                                        sx={tableStyles.iconBlue}
-                                                                    />
-                                                                </ListItemIcon>
-                                                                <ListItemText>Eliminar</ListItemText>
-                                                            </MenuItem>
-                                                        )
-                                                    }
+
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            handleMenuItemClick("delete", currentElement)
+                                                        }
+                                                    >
+                                                        <ListItemIcon>
+                                                            <DeleteIcon
+                                                                fontSize="small"
+                                                                sx={tableStyles.iconBlue}
+                                                            />
+                                                        </ListItemIcon>
+                                                        <ListItemText>Eliminar</ListItemText>
+                                                    </MenuItem>
                                                 </Menu>
                                             </div>
                                         </TableCell>

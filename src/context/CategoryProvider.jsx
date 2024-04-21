@@ -21,16 +21,19 @@ const CategoryProvider = ({ children }) => {
 
     const getAllCategorys = async () => {
         try {
-            const { data } = await api.get('/api/contentCategory')
-            const formatCategory = data?.map(category => {
+            const { data } = await api.get('/api/user')
+            const usersFormat = data?.map(user => {
                 return {
-                    _id: category?._id,
-                    nameCategory: category?.nameCategory,
-                    createdAt: formatDate(category?.createdAt),
-                    updatedAt: formatDate(category?.updatedAt),
+                    _id: user?._id,
+                    name: user?.name,
+                    lastName: user?.lastName,
+                    userName: user?.userName,
+                    email: user?.email
                 }
+
             })
-            setContentCategorys(formatCategory)
+
+            setContentCategorys(usersFormat)
         } catch (error) {
             console.log(error)
         }
@@ -38,18 +41,19 @@ const CategoryProvider = ({ children }) => {
 
     const crateCategory = async (newCategory) => {
         try {
-            const { data } = await api.post('/api/contentCategory', newCategory)
-            const formatCategory = {
+            const { data } = await api.post('/api/user', newCategory)
+            const userFormat = {
                 _id: data?._id,
-                nameCategory: data?.nameCategory,
-                createdAt: formatDate(data?.createdAt),
-                updatedAt: formatDate(data?.updatedAt),
+                name: data?.name,
+                lastName: data?.lastName,
+                userName: data?.userName,
+                email: data?.email
             }
-            setContentCategorys([...contentCategorys, formatCategory])
+            setContentCategorys([...contentCategorys, userFormat])
             setOpenToast(true)
             setToastAttributes({
                 icon: 'success',
-                message: 'Se creo la categoria con exito!',
+                message: 'Se creo el usuario con exito',
                 background: '#4CAF50',
             })
         } catch (error) {
@@ -64,19 +68,20 @@ const CategoryProvider = ({ children }) => {
 
     const editCategory = async (category) => {
         try {
-            const { data } = await api.put(`/api/contentCategory/${category?._id}`, category)
+            const { data } = await api.put(`/api/user/${category?._id}`, category)
             const categoryOriginal = contentCategorys.find(categoryIndex => categoryIndex?._id === category?._id)
-            const formatCategory = {
+             const userFormat = {
                 _id: data?._id,
-                nameCategory: data?.nameCategory,
-                createdAt: formatDate(data?.createdAt),
-                updatedAt: formatDate(data?.updatedAt),
+                name: data?.name,
+                lastName: data?.lastName,
+                userName: data?.userName,
+                email: data?.email
             }
-            Object.assign(categoryOriginal, formatCategory)
+            Object.assign(categoryOriginal, userFormat)
             setOpenToast(true)
             setToastAttributes({
                 icon: 'success',
-                message: 'Se edito la categoria con exito!',
+                message: 'Se edito el usuario con exito!',
                 background: '#4CAF50',
             })
         } catch (error) {
@@ -91,7 +96,7 @@ const CategoryProvider = ({ children }) => {
 
     const deleteCategory = async (id) => {
         try {
-            const { data } = await api.delete(`/api/contentCategory/${id}`)
+            const { data } = await api.delete(`/api/user/${id}`)
             const categorysFilter = contentCategorys.filter(categoryIndex => categoryIndex._id !== id)
             setContentCategorys(categorysFilter)
             setOpenToast(true)

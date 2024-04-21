@@ -13,12 +13,15 @@ import {
 import PropTypes from "prop-types"
 import useCategory from "../../hooks/useCategory"
 const ModalCategory = ({ setOpen, open }) => {
-    const [disabledButton, setDisabledButton] = useState(false)
     const [isEdit, setIsEdit] = useState(false)
     const [newCategory, setNewCategory] = useState({
-        nameCategory: ""
+        name: "",
+        lastName: "",
+        userName: "",
+        email: "",
+        password: "",
     })
-    const { nameCategory } = newCategory
+    const { name, lastName, userName, email, password } = newCategory
     const { crateCategory, contentCategoryObject, setContentCategoryObject, editCategory } = useCategory()
 
     useEffect(() => {
@@ -28,20 +31,18 @@ const ModalCategory = ({ setOpen, open }) => {
         }
     }, [contentCategoryObject])
 
-    useEffect(() => {
-        if (nameCategory.trim() === '') {
-            setDisabledButton(true)
-        } else {
-            setDisabledButton(false)
-        }
-    }, [nameCategory])
+
 
     const onChangeCategory = (e) => setNewCategory({ ...newCategory, [e.target.name]: e.target.value })
 
     const handleClose = () => {
         setOpen(false)
         setNewCategory({
-            nameCategory: ""
+            name: "",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
         })
         setContentCategoryObject(null)
         setIsEdit(false)
@@ -56,7 +57,11 @@ const ModalCategory = ({ setOpen, open }) => {
         }
         setOpen(false)
         setNewCategory({
-            nameCategory: ""
+            name: "",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
         })
         setContentCategoryObject(null)
         setIsEdit(false)
@@ -70,7 +75,7 @@ const ModalCategory = ({ setOpen, open }) => {
             aria-describedby="alert-dialog-description"
         >
             <DialogTitle id="alert-dialog-title">
-                Alta de categoria de contenido
+                {isEdit ? "Editando usuario" : "Alta de usuario"}
             </DialogTitle>
             <DialogContent  >
                 <Box sx={{
@@ -86,19 +91,103 @@ const ModalCategory = ({ setOpen, open }) => {
                             fontSize: "20px",
                             color: "#000",
                         }}>
-                            Nombre de la categoria
+                            Nombre
                         </InputLabel>
 
                         <OutlinedInput
-                            name="nameCategory"
+                            name="name"
                             sx={{
                                 marginTop: "30px",
                                 marginBottom: "30px"
                             }}
-                            value={nameCategory}
+                            value={name}
                             onChange={(e) => onChangeCategory(e)}
                         />
                     </FormControl>
+                    <FormControl
+                        variant="standard"
+                        sx={{ width: "100%" }}>
+                        <InputLabel shrink sx={{
+                            fontSize: "20px",
+                            color: "#000",
+                        }}>
+                            Apellidos
+                        </InputLabel>
+
+                        <OutlinedInput
+                            name="lastName"
+                            sx={{
+                                marginTop: "30px",
+                                marginBottom: "30px"
+                            }}
+                            value={lastName}
+                            onChange={(e) => onChangeCategory(e)}
+                        />
+                    </FormControl>
+                    <FormControl
+                        variant="standard"
+                        sx={{ width: "100%" }}>
+                        <InputLabel shrink sx={{
+                            fontSize: "20px",
+                            color: "#000",
+                        }}>
+                            Usuario
+                        </InputLabel>
+
+                        <OutlinedInput
+                            name="userName"
+                            sx={{
+                                marginTop: "30px",
+                                marginBottom: "30px"
+                            }}
+                            value={userName}
+                            onChange={(e) => onChangeCategory(e)}
+                        />
+                    </FormControl>
+                    <FormControl
+                        variant="standard"
+                        sx={{ width: "100%" }}>
+                        <InputLabel shrink sx={{
+                            fontSize: "20px",
+                            color: "#000",
+                        }}>
+                            Correo
+                        </InputLabel>
+
+                        <OutlinedInput
+                            name="email"
+                            sx={{
+                                marginTop: "30px",
+                                marginBottom: "30px"
+                            }}
+                            value={email}
+                            onChange={(e) => onChangeCategory(e)}
+                        />
+                    </FormControl>
+
+                    {!isEdit && (
+                        <FormControl
+                        variant="standard"
+                        sx={{ width: "100%" }}>
+                        <InputLabel shrink sx={{
+                            fontSize: "20px",
+                            color: "#000",
+                        }}>
+                            Contraseña
+                        </InputLabel>
+
+                        <OutlinedInput
+                            name="password"
+                            sx={{
+                                marginTop: "30px",
+                                marginBottom: "30px"
+                            }}
+                            value={password}
+                            onChange={(e) => onChangeCategory(e)}
+                        />
+                    </FormControl>
+                    )}
+                    
                 </Box>
             </DialogContent>
             <DialogActions>
@@ -106,7 +195,6 @@ const ModalCategory = ({ setOpen, open }) => {
                     variant="outlined"
                     onClick={handleClose}>Cancelar</Button>
                 <Button
-                    disabled={disabledButton}
                     variant="contained"
                     onClick={() => saveCategory()}
                     autoFocus>

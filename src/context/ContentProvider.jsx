@@ -13,19 +13,19 @@ const ContentProvider = ({ children }) => {
         background: '',
     })
 
-    useEffect(() => {
-        getContents()
-    }, [])
+    // useEffect(() => {
+    //     getContents()
+    // }, [])
 
-    const getContents = async () => {
-        try {
-            const { data } = await api.get('/api/content')
-            console.log(data)
-            setContents(data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getContents = async () => {
+    //     try {
+    //         const { data } = await api.get('/api/content')
+    //         console.log(data)
+    //         setContents(data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     const createContent = async (content) => {
         try {
