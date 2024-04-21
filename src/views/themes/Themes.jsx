@@ -9,7 +9,6 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 const ROLE_READER = "reader"
-const ROLE_ADMIN = "admin"
 
 const tableStyles = {
     iconBlue: {
@@ -23,7 +22,7 @@ const Themes = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const [currentElement, setCurrentElement] = useState(null)
 
-    const { themes } = useTheme()
+    const { themes, deleteProductos } = useTheme()
     const { user } = useAuth()
 
     const handleMenuClick = (event, data) => {
@@ -43,7 +42,7 @@ const Themes = () => {
             console.log('editando')
             console.log(data)
         } else if (accion === "delete") {
-            console.log('eliminando')
+            deleteProductos(data?._id)
             // deleteFunction(data)
         }
 
@@ -86,60 +85,44 @@ const Themes = () => {
                         <Card key={productosIndex?._id} sx={{ maxWidth: 345 }}>
                             <CardHeader
                                 action={
-                                    user?.userType !== ROLE_READER ?
-                                        <div>
-                                            <IconButton
-                                                id="basic-button"
-                                                aria-controls={openMenu ? "basic-menu" : undefined}
-                                                aria-haspopup="true"
-                                                aria-expanded={openMenu ? "true" : undefined}
-                                                onClick={(e) => {
-                                                    e.stopPropagation()
-                                                    handleMenuClick(e, productosIndex)
-                                                }}
-                                            >
-                                                <MoreVertIcon />
-                                            </IconButton>
-                                            <Menu
-                                                id="basic-menu"
-                                                anchorEl={anchorEl}
-                                                open={openMenu}
-                                                onClose={handleClose}
-                                                elevation={1}
-                                            >
-                                                <MenuItem
-                                                    onClick={() =>
-                                                        handleMenuItemClick("edit", currentElement)
-                                                    }
-                                                >
-                                                    <ListItemIcon>
-                                                        <BorderColorOutlinedIcon
-                                                            fontSize="small"
-                                                            sx={tableStyles.iconBlue}
-                                                        />
-                                                    </ListItemIcon>
-                                                    <ListItemText>Editar</ListItemText>
-                                                </MenuItem>
-                                                {
-                                                    user?.userType === ROLE_ADMIN && (
-                                                        <MenuItem
-                                                            onClick={() =>
-                                                                handleMenuItemClick("delete", currentElement)
-                                                            }
-                                                        >
-                                                            <ListItemIcon>
-                                                                <DeleteIcon
-                                                                    fontSize="small"
-                                                                    sx={tableStyles.iconBlue}
-                                                                />
-                                                            </ListItemIcon>
-                                                            <ListItemText>Eliminar</ListItemText>
-                                                        </MenuItem>
-                                                    )
+                                    <div>
+                                        <IconButton
+                                            id="basic-button"
+                                            aria-controls={openMenu ? "basic-menu" : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={openMenu ? "true" : undefined}
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                handleMenuClick(e, productosIndex)
+                                            }}
+                                        >
+                                            <MoreVertIcon />
+                                        </IconButton>
+                                        <Menu
+                                            id="basic-menu"
+                                            anchorEl={anchorEl}
+                                            open={openMenu}
+                                            onClose={handleClose}
+                                            elevation={1}
+                                        >
+                                           
+
+                                            <MenuItem
+                                                onClick={() =>
+                                                    handleMenuItemClick("delete", currentElement)
                                                 }
-                                            </Menu>
-                                        </div>
-                                        : null
+                                            >
+                                                <ListItemIcon>
+                                                    <DeleteIcon
+                                                        fontSize="small"
+                                                        sx={tableStyles.iconBlue}
+                                                    />
+                                                </ListItemIcon>
+                                                <ListItemText>Eliminar</ListItemText>
+                                            </MenuItem>
+                                        </Menu>
+                                    </div>
+
                                 }
                                 title={productosIndex?.nombreProducto}
                             />

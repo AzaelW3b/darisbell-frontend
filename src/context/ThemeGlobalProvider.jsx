@@ -15,7 +15,7 @@ const ThemeGlobalProvider = ({ children }) => {
 
     useEffect(() => {
         getThemes()
-    },[])
+    }, [])
 
     const getThemes = async () => {
         try {
@@ -42,6 +42,22 @@ const ThemeGlobalProvider = ({ children }) => {
         }
     }
 
+    const deleteProductos = async (id) => {
+        try {
+            await api.delete(`/api/productos/${id}`)
+            const themesFilers = themes.filter(them => them._id !== id)
+            setThemes(themesFilers)
+        } catch (error) {
+            console.log(error)
+            setOpenToast(true)
+            setToastAttributes({
+                icon: "error",
+                message: `${error?.response?.data}`,
+                background: "#FF5252",
+            })
+        }
+    }
+
 
     return (
         <ThemeGlobalContext.Provider
@@ -53,7 +69,8 @@ const ThemeGlobalProvider = ({ children }) => {
                 //methods
                 createTheme,
                 setToastAttributes,
-                setOpenToast
+                setOpenToast,
+                deleteProductos
 
             }}
         >{children}
